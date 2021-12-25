@@ -4,10 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import { store } from './app/redux/store';
 
+
 export default function App() {
   return (
-    <Provider store={store}>
-      <NavigationContainer>
+    <Provider store={store}  >
+      <NavigationContainer >
         <AppNavigator></AppNavigator>
       </NavigationContainer>
     </Provider>

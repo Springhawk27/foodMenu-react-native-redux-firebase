@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import HomeScreen from './screens/HomeScreen';
 import MenuScreen from './screens/MenuScreen';
 import DishDetailScreen from './screens/DishDetailScreen';
@@ -11,19 +11,36 @@ const Stack = createNativeStackNavigator();
 
 const MenuStack = () => {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+            screenOptions={
+                {
+                    headerStyle: {
+                        backgroundColor: '#F53F50',
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    }
+                }
+            }
+        >
             <Stack.Screen name="See all the available items" component={MenuScreen} />
-            <Stack.Screen name="Dish Detail" component={DishDetailScreen} />
+            <Stack.Screen name="Dish Detail"
+                component={DishDetailScreen}
+                options={({ route }) => ({ title: route.params.dish.name })}
+            />
         </Stack.Navigator>
     )
 }
 
 const AppNavigator = () => {
     return (
+
         <Drawer.Navigator initialRouteName="Home">
             <Drawer.Screen name="Home" component={HomeScreen} />
-            <Drawer.Screen name="Menu" component={MenuStack} />
+            <Drawer.Screen name="Food Menu" component={MenuStack} />
         </Drawer.Navigator>
+
     )
 }
 
