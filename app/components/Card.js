@@ -1,21 +1,32 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+
+import { connect } from 'react-redux';
+import { removeFromFavourites } from '../redux/actionCreators';
+
+const mapDispatchToProps = dispatch => {
+    return {
+        removeFromFavourites: dish => dispatch(removeFromFavourites(dish)),
+    }
+}
 
 const Card = (props) => {
     return (
-        <View style={styles.card}>
-            <Image style={styles.image} source={{ uri: props.item.image }} />
-            <View style={styles.details}>
-                <Text style={styles.title}>{props.item.name}</Text>
-            </View>
-        </View >
+        <Pressable onLongPress={() => alert("Pressed")}>
+            <View style={styles.card}>
+                <Image style={styles.image} source={{ uri: props.item.image }} />
+                <View style={styles.details}>
+                    <Text style={styles.title}>{props.item.name}</Text>
+                </View>
+            </View >
+        </Pressable>
     )
 }
 
 const styles = StyleSheet.create({
     card: {
         borderRadius: 15,
-        backgroundColor: '#E1FDFE',
+        backgroundColor: '#FEFEED',
         overflow: 'hidden',
         margin: 20,
         elevation: 5,
@@ -33,4 +44,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Card
+export default connect(null, mapDispatchToProps)(Card);

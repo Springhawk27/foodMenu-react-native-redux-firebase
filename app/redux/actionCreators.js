@@ -21,3 +21,10 @@ export const addToFavourites = dish => {
         payload: dish,
     }
 }
+
+export const removeFromFavourites = dish => {
+    return {
+        type: actionTypes.REMOVE_FAVOURITES,
+        payload: dish,
+    }
+}
