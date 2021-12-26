@@ -1,8 +1,43 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
+import Icon from '../components/Icon';
+import { connect } from 'react-redux';
+import { addToFavourites } from '../redux/actionCreators';
+
+const mapStateToProps = state => {
+    return {
+        favourites: state.favourites,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addToFavourites: (dish) => dispatch(addToFavourites(dish))
+    }
+}
 
 const DishDetailScreen = (props) => {
+
     const dish = props.route.params.dish
+
+
+    const isFavourite = props.favourites.some(item => item.id === dish.id);
+
+
+    const markFavourite = dish => {
+        if (isFavourite) {
+            alert('You already added this item  to favourite')
+        }
+        else {
+            props.addToFavourites(dish)
+        }
+    }
+
+    let iconName = "ios-heart-outline"
+    if (isFavourite) {
+        iconName = "ios-heart-sharp"
+    }
+
     return (
         <View style={styels.container}>
             {dish.image && <Image
@@ -10,8 +45,9 @@ const DishDetailScreen = (props) => {
 
                 source={{ uri: dish.image }} />}
             <View style={styels.details}>
-                <Text style={styels.name}>{dish.name}</Text>
-                <Text style={styels.description} >{dish.description}</Text>
+                <Icon name={iconName} color="#7ECC49" size={35} iconStyle={{ paddingY: 10 }} action={() => markFavourite(dish)} />
+                {/* <Text style={styels.name}>{dish.name}</Text> */}
+                < Text style={styels.description} >{dish.description}</Text>
                 <Text style={styels.price} >{dish.price} taka</Text>
 
             </View>
@@ -54,4 +90,4 @@ const styels = StyleSheet.create({
     }
 })
 
-export default DishDetailScreen
+export default connect(mapStateToProps, mapDispatchToProps)(DishDetailScreen)
