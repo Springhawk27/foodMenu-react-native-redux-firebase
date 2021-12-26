@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, FlatList } from 'react-native'
-
+import Card from '../components/Card';
 import { connect } from 'react-redux';
 
 
@@ -15,7 +15,7 @@ const FavouritesScreen = (props) => {
         <View>
             <FlatList
                 data={props.favourites}
-                renderItem={({ item }) => <Text>{item.name}</Text>}
+                renderItem={({ item }) => <Card item={item}></Card>}
                 keyExtractor={item => item.id.toString()}
             >
 
