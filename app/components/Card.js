@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+import React, { useState } from 'react'
+import { View, Text, Image, StyleSheet, Pressable, Alert } from 'react-native';
 
 import { connect } from 'react-redux';
 import { removeFromFavourites } from '../redux/actionCreators';
@@ -11,15 +11,34 @@ const mapDispatchToProps = dispatch => {
 }
 
 const Card = (props) => {
+
+    const removeFavourites = () => {
+        Alert.alert(
+            'Delete Favourite?',
+            'Are you sure you want to delete this item from favourites?',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log("cancelled"),
+                    style: "cancel",
+                },
+                {
+                    text: 'OK',
+                    onPress: () => props.removeFromFavourites(props.item),
+                }
+            ],
+            { cancelable: true }
+        )
+    }
     return (
-        <Pressable onLongPress={() => alert("Pressed")}>
+        <Pressable onLongPress={() => removeFavourites()} >
             <View style={styles.card}>
                 <Image style={styles.image} source={{ uri: props.item.image }} />
                 <View style={styles.details}>
                     <Text style={styles.title}>{props.item.name}</Text>
                 </View>
             </View >
-        </Pressable>
+        </Pressable >
     )
 }
 
