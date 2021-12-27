@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icon from './components/Icon';
 import { useNavigation } from '@react-navigation/native';
 import FavouritesScreen from './screens/FavouritesScreen';
+import Login from './components/Login';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -76,6 +77,7 @@ const FavouriteStack = () => {
                 }
             }
         >
+
             <Stack.Screen name="Favourites" component={FavouritesScreen}>
 
             </Stack.Screen>
@@ -87,6 +89,8 @@ const AppNavigator = () => {
     return (
 
         <Drawer.Navigator initialRouteName="Food Menu">
+            <Drawer.Screen name="Login" component={Login} />
+
             <Drawer.Screen name="Home" component={HomeScreen} />
             <Drawer.Screen name="Food Menu" component={MenuStack} />
             <Drawer.Screen name="Favourites" component={FavouriteStack} />
