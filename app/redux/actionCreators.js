@@ -28,3 +28,26 @@ export const removeFromFavourites = dish => {
         payload: dish,
     }
 }
+
+export const trySignUp = (email, password) => dispatch => {
+    fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCR9BZ1Je3xg8y0mTzpc4nH9fHjmyB0cLk", {
+        method: "POST",
+        body: JSON.stringify({
+            email: email,
+            password: password,
+            returnSecureToken: true
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .catch(err => {
+            console.log(err);
+            alert("Authentication Failed!");
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+        })
+
+}

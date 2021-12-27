@@ -3,6 +3,8 @@ import * as actionTypes from './actionTypes';
 const INITIAL_STATE = {
     dishes: [],
     favourites: [],
+    isAuth: false,
+
 }
 
 export const reducer = (state = INITIAL_STATE, action) => {
