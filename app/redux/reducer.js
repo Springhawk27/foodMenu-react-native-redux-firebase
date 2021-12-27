@@ -24,7 +24,11 @@ export const reducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 favourites: state.favourites.filter(item => item.id !== action.payload.id),
             }
-
+        case actionTypes.AUTHENTICATE_USER:
+            return {
+                ...state,
+                isAuth: true
+            }
         default:
             return state;
     }

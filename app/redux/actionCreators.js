@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
+import { navigate } from '../../App';
 
 export const loadDishes = dishes => {
     return {
@@ -29,6 +30,13 @@ export const removeFromFavourites = dish => {
     }
 }
 
+
+export const authUser = () => {
+    return {
+        type: actionTypes.AUTHENTICATE_USER
+    }
+}
+
 export const trySignUp = (email, password) => dispatch => {
     fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCR9BZ1Je3xg8y0mTzpc4nH9fHjmyB0cLk", {
         method: "POST",
@@ -47,6 +55,12 @@ export const trySignUp = (email, password) => dispatch => {
         })
         .then(res => res.json())
         .then(data => {
+            if (data.error) {
+                alert(data.error.message);
+            } else {
+                navigate("Home");
+                dispatch(authUser());
+            }
             console.log(data)
         })
 
